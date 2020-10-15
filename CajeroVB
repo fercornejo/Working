@@ -1,0 +1,107 @@
+Module Module1
+
+    Sub Main()
+
+        'Creando variables'
+        Dim menu As Boolean = True
+        Dim login As Boolean = True
+        Dim tarjeta As String
+        Dim pin As String
+        Dim intentos As Integer = 0
+        Dim saldo As Double = 50.0
+        Dim deposito As Double = 0.0
+        Dim retiro As Double = 0.0
+
+        'Esta estructura ayuda a mantener el login activo durante 3 intentos'
+        While login = True
+
+            'Capturando Datos'
+            Console.WriteLine("Bienvenido.")
+            Console.Write("Ingrese su tarjeta: ")
+            tarjeta = Console.ReadLine
+            Console.Write("Ingrese su pin: ")
+            pin = Console.ReadLine
+
+            'validando credenciales'
+            If tarjeta.Equals("123456789") And pin.Equals("1234") Then
+
+                'Esta estructura ayuda a mantener el menu, hasta que el usuario digite la opcion salir'
+                While menu = True
+
+                    'Menu principal
+                    Console.WriteLine("..............................")
+                    Console.WriteLine()
+                    Console.WriteLine("****Menu Principal****")
+                    Console.WriteLine("     1. Consulta de saldo")
+                    Console.WriteLine("     2. Depositar")
+                    Console.WriteLine("     3. Retirar")
+                    Console.WriteLine("     4. Salir")
+                    Console.Write("Digite su opcion: ")
+                    'quedamos en la espera de la opcion'
+                    Dim opcionUsuario As Integer = CInt(Console.ReadLine)
+
+                    Console.WriteLine("..............................")
+                    Console.WriteLine()
+
+                    'Condicionales'
+                    If opcionUsuario = 1 Then
+
+                        Console.WriteLine("Su saldo es: $" & saldo)
+                        menu = True
+                        login = True
+
+                    ElseIf opcionUsuario = 2 Then
+
+                        Console.Write("Cuanto desea depositar $")
+                        deposito = CDbl(Console.ReadLine)
+
+                        saldo = saldo + deposito
+
+                        Console.WriteLine("Su saldo es: $" & saldo)
+                        menu = True
+                        login = True
+
+                    ElseIf opcionUsuario = 3 Then
+
+                        Console.Write("Cuanto desea retirar $")
+                        retiro = CDbl(Console.ReadLine)
+
+                        saldo = saldo - retiro
+
+                        Console.WriteLine("Su saldo es: $" & saldo)
+                        menu = True
+                        login = True
+                    ElseIf opcionUsuario = 4 Then
+
+                        Console.WriteLine("Saliendo...")
+                        menu = False
+                        login = True
+                    Else
+                        Console.WriteLine("Digite la opcion (1 a 4)")
+                        menu = True
+                        login = True
+                    End If
+
+                    Console.ReadKey()
+                End While
+                'FIN DE WHILE'
+
+            Else
+                'intentos en contador'
+                intentos = intentos + 1
+                Console.WriteLine("Tarjeta o pin no validos.")
+                Console.WriteLine(".....................................")
+                Console.WriteLine()
+                'Si se acaban los intentos, se sale del login y del cmd'
+                If intentos = 3 Then
+                    Console.WriteLine("Se le acabaron los intentos.")
+                    Console.WriteLine("Saliendo del sistema...")
+                    login = False
+                End If
+            End If
+        End While
+        Console.ReadKey()
+
+    End Sub
+
+End Module
